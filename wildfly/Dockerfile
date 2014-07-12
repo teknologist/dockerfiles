@@ -1,8 +1,13 @@
 # Use latest Fedora image as the base
 FROM fedora
 
-# Install java
-RUN yum -y install java-1.7.0-openjdk-devel
+RUN yum -y install wget
+
+# Install Oracle java
+RUN cd /opt && wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u60-b19/jdk-7u60-linux-x64.rpm 
+
+RUN rpm -Uvh /opt/jdk-7u60-linux-x64.rpm
+
 
 # Clean the metadata
 RUN yum clean all
@@ -27,4 +32,4 @@ USER wildfly
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
-CMD ["/opt/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+CMD ["/opt/wildfly/bin/standalone-full.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
