@@ -8,6 +8,7 @@ RUN cd /opt && wget --no-check-certificate --no-cookies --header "Cookie: oracle
 
 RUN rpm -Uvh /opt/jdk-7u60-linux-x64.rpm
 
+RUN alternatives --install /usr/bin/java java /usr/java/latest/jre/bin/java 200000
 
 # Clean the metadata
 RUN yum clean all
